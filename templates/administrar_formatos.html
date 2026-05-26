@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrar Formatos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="form-page">
+    <h1>Administración de Formatos</h1>
+
+    <div class="orden-form">
+        <h3>Opciones de administración</h3>
+
+        <div class="menu-buttons">
+            <a href="{{ url_for('admin_areas') }}" class="menu-btn">Modificar áreas</a>
+            <a href="{{ url_for('admin_supervisores') }}" class="menu-btn">Modificar supervisores</a>
+            <a href="{{ url_for('admin_tecnicos') }}" class="menu-btn">Modificar técnicos</a>
+            <a href="{{ url_for('admin_control_documental') }}" class="menu-btn">Modificar control documental</a>
+            <a href="{{ url_for('admin_usuarios') }}" class="menu-btn">
+    Administrar Usuarios
+</a>
+        </div>
+
+        <a href="/menu" class="regresar">Regresar al menú</a>
+    </div>
+</div>
+
+</body>
+</html>

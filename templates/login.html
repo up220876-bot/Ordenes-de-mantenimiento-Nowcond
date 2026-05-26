@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <div class="login-box">
+
+        <h1>Sistema de Mantenimiento</h1>
+
+        <form method="POST">
+
+            <div class="campo">
+                <label>Rol</label>
+
+                <select name="rol" id="rolSelect" required>
+                    <option value="">Seleccionar</option>
+                    <option value="admin">Administrador</option>
+                    <option value="supervisor">Supervisor</option>
+                    <option value="tecnico">Técnico</option>
+                </select>
+            </div>
+
+            <div class="campo">
+                <label>Nombre</label>
+
+                <select name="nombre" required>
+
+                    {% for usuario in usuarios %}
+                        <option value="{{ usuario.nombre }}">
+                            {{ usuario.nombre }} - {{ usuario.rol }}
+                        </option>
+                    {% endfor %}
+
+                </select>
+            </div>
+
+            <div class="campo">
+                <label>Contraseña</label>
+
+                <input type="password"
+                       name="password"
+                       required>
+            </div>
+
+            {% if error %}
+            <div class="error-login">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <button type="submit" class="login-btn">
+                Ingresar
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

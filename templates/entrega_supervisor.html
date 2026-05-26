@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Entrega de máquina</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="form-page">
+
+    <h1>Revisión y entrega de máquina</h1>
+
+    <div class="orden-form">
+
+        <h3>Información de la solicitud</h3>
+
+        <div class="form-grid">
+
+            <div class="campo">
+                <label>Folio</label>
+                <input type="text"
+                       value="{{ solicitud.folio }}"
+                       readonly>
+            </div>
+
+            {% if labels.get("area") %}
+            <div class="campo">
+                <label>{{ labels.get("area") }}</label>
+                <input type="text"
+                       value="{{ solicitud.area }}"
+                       readonly>
+            </div>
+            {% endif %}
+
+            {% if labels.get("maquina") %}
+            <div class="campo">
+                <label>{{ labels.get("maquina") }}</label>
+                <input type="text"
+                       value="{{ solicitud.maquina }}"
+                       readonly>
+            </div>
+            {% endif %}
+
+            {% if labels.get("solicitante") %}
+            <div class="campo">
+                <label>{{ labels.get("solicitante") }}</label>
+                <input type="text"
+                       value="{{ solicitud.solicitante }}"
+                       readonly>
+            </div>
+            {% endif %}
+
+            {% if labels.get("descripcion") %}
+            <div class="campo full-width">
+                <label>{{ labels.get("descripcion") }}</label>
+                <textarea rows="4"
+                          readonly>{{ solicitud.descripcion }}</textarea>
+            </div>
+            {% endif %}
+
+            {% if labels.get("causa_falla") %}
+            <div class="campo full-width">
+                <label>{{ labels.get("causa_falla") }}</label>
+                <textarea rows="4"
+                          readonly>{{ solicitud.causa_falla }}</textarea>
+            </div>
+            {% endif %}
+
+            {% if labels.get("actividad_realizada") %}
+            <div class="campo full-width">
+                <label>{{ labels.get("actividad_realizada") }}</label>
+                <textarea rows="4"
+                          readonly>{{ solicitud.actividad_realizada }}</textarea>
+            </div>
+            {% endif %}
+
+            {% if labels.get("refacciones_utilizadas") %}
+            <div class="campo full-width">
+                <label>{{ labels.get("refacciones_utilizadas") }}</label>
+                <textarea rows="4"
+                          readonly>{{ solicitud.refacciones_utilizadas }}</textarea>
+            </div>
+            {% endif %}
+
+        </div>
+
+        <h3>Confirmación del supervisor</h3>
+
+        <form method="POST">
+
+            <div class="form-grid">
+
+                {% if labels.get("maquina_entregada") %}
+                <div class="campo">
+                    <label>{{ labels.get("maquina_entregada") }}</label>
+
+                    <select name="maquina_entregada"
+                            required>
+
+                        <option>Sí</option>
+                        <option>No</option>
+
+                    </select>
+                </div>
+                {% endif %}
+
+                {% if labels.get("fecha_entrega") %}
+                <div class="campo">
+                    <label>{{ labels.get("fecha_entrega") }}</label>
+
+                    <input type="datetime-local"
+                           name="fecha_entrega"
+                           required>
+                </div>
+                {% endif %}
+
+                {% if labels.get("observaciones_supervisor") %}
+                <div class="campo full-width">
+                    <label>{{ labels.get("observaciones_supervisor") }}</label>
+
+                    <textarea name="observaciones_supervisor"
+                              rows="4"></textarea>
+                </div>
+                {% endif %}
+
+                <div class="full-width">
+                    <button type="submit">
+                        Confirmar entrega
+                    </button>
+                </div>
+
+            </div>
+
+        </form>
+
+        <a href="/solicitudes_concluidas"
+           class="regresar">
+
+           Regresar
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

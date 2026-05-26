@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Menú Principal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="menu-container">
+
+    <h1>Sistema de Mantenimiento Correctivo</h1>
+
+    <div class="menu-buttons">
+
+        {% if session["rol"] == "admin" or session["rol"] == "supervisor" %}
+        <a href="{{ url_for('nueva_orden') }}" class="menu-btn">
+            Nueva Orden
+        </a>
+
+        <a href="{{ url_for('solicitudes_concluidas') }}" class="menu-btn">
+            Órdenes Terminadas
+        </a>
+        {% endif %}
+
+        {% if session["rol"] == "admin" or session["rol"] == "tecnico" %}
+        <a href="{{ url_for('solicitudes_activas') }}" class="menu-btn">
+            Órdenes Activas
+        </a>
+        {% endif %}
+
+        {% if session["rol"] == "admin" %}
+        <a href="{{ url_for('exportar_excel') }}" class="menu-btn">
+            Exportar Excel
+        </a>
+
+        <a href="{{ url_for('administrar_formatos') }}" class="menu-btn">
+            Administrar Formatos
+        </a>
+        {% endif %}
+
+        <a href="{{ url_for('cambiar_password') }}" class="menu-btn">
+            Cambiar Contraseña
+        </a>
+
+        <a href="{{ url_for('logout') }}" class="menu-btn">
+            Cerrar Sesión
+        </a>
+<a href="/menu" class="regresar">
+    Regresar al menú
+</a>
+    </div>
+
+</div>
+
+</body>
+</html>
