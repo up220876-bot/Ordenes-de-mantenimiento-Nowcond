@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Control Documental</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h2>Editar Control Documental</h2>
+
+<form method="POST">
+
+    <label>Código</label>
+    <input type="text" name="codigo" value="{{ control.codigo }}">
+
+    <label>Fecha emisión</label>
+    <input type="text" name="fecha_emision" value="{{ control.fecha_emision }}">
+
+    <label>Revisión</label>
+    <input type="text" name="revision" value="{{ control.revision }}">
+
+    <label>Fecha revisión</label>
+    <input type="text" name="fecha_revision" value="{{ control.fecha_revision }}">
+
+    <label>Elaboró</label>
+    <input type="text" name="elaboro" value="{{ control.elaboro }}">
+
+    <label>Revisó</label>
+    <input type="text" name="reviso" value="{{ control.reviso }}">
+
+    <button type="submit">
+        Guardar cambios
+    </button>
+
+</form>
+
+</body>
+</html>

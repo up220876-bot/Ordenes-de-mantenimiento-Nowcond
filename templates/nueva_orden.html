@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva Solicitud</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="form-page">
+
+    <h1>Solicitud de Mantenimiento Correctivo</h1>
+
+    <form class="orden-form" method="POST" enctype="multipart/form-data">
+
+        <div class="folio-box">
+            <label>Folio</label>
+            <input type="text" value="{{ folio }}" readonly>
+        </div>
+
+        <h3>Datos generales</h3>
+
+        <div class="form-grid">
+
+            {% if labels.get("area") %}
+            <div class="campo">
+                <label>{{ labels.get("area") }}</label>
+
+                <select name="area">
+
+                    {% for area in areas %}
+                    <option>{{ area.nombre }}</option>
+                    {% endfor %}
+
+                </select>
+            </div>
+            {% endif %}
+
+
+            {% if labels.get("maquina") %}
+            <div class="campo">
+                <label>{{ labels.get("maquina") }}</label>
+
+                <input type="text"
+                       name="maquina"
+                       placeholder="Ejemplo: Moldedora 003"
+                       required>
+            </div>
+            {% endif %}
+
+
+            {% if labels.get("fecha_solicitud") %}
+            <div class="campo">
+                <label>{{ labels.get("fecha_solicitud") }}</label>
+
+                <input type="date"
+                       name="fecha_solicitud"
+                       required>
+            </div>
+            {% endif %}
+
+
+            {% if labels.get("hora_solicitud") %}
+            <div class="campo">
+                <label>{{ labels.get("hora_solicitud") }}</label>
+
+                <input type="time"
+                       name="hora_solicitud"
+                       required>
+            </div>
+            {% endif %}
+
+
+            {% if labels.get("solicitante") %}
+            <div class="campo">
+                <label>{{ labels.get("solicitante") }}</label>
+
+                <select name="solicitante">
+
+                    {% for supervisor in supervisores %}
+                    <option>{{ supervisor.nombre }}</option>
+                    {% endfor %}
+
+                </select>
+            </div>
+            {% endif %}
+
+
+            {% if labels.get("tecnico") %}
+            <div class="campo">
+                <label>{{ labels.get("tecnico") }}</label>
+
+                <select name="tecnico">
+
+                    {% for tecnico in tecnicos %}
+                    <option>{{ tecnico.nombre }}</option>
+                    {% endfor %}
+
+                </select>
+            </div>
+            {% endif %}
+
+
+            {% if labels.get("tiempo_ciclo") %}
+            <div class="campo">
+                <label>{{ labels.get("tiempo_ciclo") }}</label>
+
+                <input type="text"
+                       name="tiempo_ciclo"
+                       placeholder="Ejemplo: 45 seg">
+            </div>
+            {% endif %}
+
+
+            {% if labels.get("piezas_ciclo") %}
+            <div class="campo">
+                <label>{{ labels.get("piezas_ciclo") }}</label>
+
+                <input type="number"
+                       name="piezas_ciclo">
+            </div>
+            {% endif %}
+
+
+            {% if labels.get("modelo") %}
+            <div class="campo">
+                <label>{{ labels.get("modelo") }}</label>
+
+                <input type="text"
+                       name="modelo">
+            </div>
+            {% endif %}
+
+
+            {% if labels.get("minutos_afectacion") %}
+            <div class="campo">
+                <label>{{ labels.get("minutos_afectacion") }}</label>
+
+                <input type="number"
+                       name="minutos_afectacion"
+                       placeholder="Ejemplo: 45 min">
+            </div>
+            {% endif %}
+
+
+            {% if labels.get("piezas_afectadas") %}
+            <div class="campo">
+                <label>{{ labels.get("piezas_afectadas") }}</label>
+
+                <input type="number"
+                       name="piezas_afectadas"
+                       placeholder="Ejemplo: 120">
+            </div>
+            {% endif %}
+
+
+            {% if labels.get("paro_produccion") %}
+            <div class="campo">
+                <label>{{ labels.get("paro_produccion") }}</label>
+
+                <select id="paroProduccion"
+                        name="paro_produccion"
+                        onchange="controlParo()">
+
+                    <option>No aplica</option>
+                    <option>Sí aplica</option>
+
+                </select>
+            </div>
+            {% endif %}
+
+
+            {% if labels.get("fecha_paro") %}
+            <div class="campo">
+                <label>{{ labels.get("fecha_paro") }}</label>
+
+                <input type="date"
+                       id="fechaParo"
+                       name="fecha_paro">
+            </div>
+            {% endif %}
+
+
+            {% if labels.get("hora_paro") %}
+            <div class="campo">
+                <label>{{ labels.get("hora_paro") }}</label>
+
+                <input type="time"
+                       id="horaParo"
+                       name="hora_paro">
+            </div>
+            {% endif %}
+
+
+            {% if labels.get("fecha_arranque") %}
+            <div class="campo">
+                <label>{{ labels.get("fecha_arranque") }}</label>
+
+                <input type="date"
+                       id="fechaArranque"
+                       name="fecha_arranque">
+            </div>
+            {% endif %}
+
+
+            {% if labels.get("hora_arranque") %}
+            <div class="campo">
+                <label>{{ labels.get("hora_arranque") }}</label>
+
+                <input type="time"
+                       id="horaArranque"
+                       name="hora_arranque">
+            </div>
+            {% endif %}
+
+
+            {% if labels.get("descripcion") %}
+            <div class="campo full-width">
+                <label>{{ labels.get("descripcion") }}</label>
+
+                <textarea rows="4"
+                          name="descripcion"
+                          required></textarea>
+            </div>
+            {% endif %}
+
+
+            {% if labels.get("foto") %}
+            <div class="campo full-width">
+                <label>{{ labels.get("foto") }}</label>
+
+                <input type="file"
+                       name="foto"
+                       accept="image/*"
+                       capture="environment">
+            </div>
+            {% endif %}
+
+
+            <div class="full-width">
+                <button type="submit">
+                    Guardar Solicitud
+                </button>
+            </div>
+
+        </div>
+
+    </form>
+
+   <div class="footer-control">
+    <table>
+        <tr>
+            <th>Código</th>
+            <th>Fecha de emisión</th>
+            <th>Revisión</th>
+            <th>Fecha de revisión</th>
+            <th>Elaboró</th>
+            <th>Revisó</th>
+        </tr>
+
+        <tr>
+            <td>{{ control.codigo }}</td>
+            <td>{{ control.fecha_emision }}</td>
+            <td>{{ control.revision }}</td>
+            <td>{{ control.fecha_revision }}</td>
+            <td>{{ control.elaboro }}</td>
+            <td>{{ control.reviso }}</td>
+        </tr>
+    </table>
+</div>
+
+    <a href="/menu"
+       class="regresar">
+
+       Regresar al menú
+
+    </a>
+
+</div>
+
+<script>
+
+function controlParo() {
+
+    let paro = document.getElementById("paroProduccion").value;
+
+    let fechaParo = document.getElementById("fechaParo");
+    let horaParo = document.getElementById("horaParo");
+
+    let fechaArranque = document.getElementById("fechaArranque");
+    let horaArranque = document.getElementById("horaArranque");
+
+    if (paro === "No aplica") {
+
+        fechaParo.value = "";
+        horaParo.value = "";
+
+        fechaArranque.value = "";
+        horaArranque.value = "";
+
+        fechaParo.disabled = true;
+        horaParo.disabled = true;
+
+        fechaArranque.disabled = true;
+        horaArranque.disabled = true;
+
+    }
+
+    else {
+
+        fechaParo.disabled = false;
+        horaParo.disabled = false;
+
+        fechaArranque.disabled = false;
+        horaArranque.disabled = false;
+    }
+}
+
+window.onload = controlParo;
+
+</script>
+
+</body>
+</html>
