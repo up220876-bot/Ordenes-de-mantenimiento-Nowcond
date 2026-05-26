@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Órdenes Terminadas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="form-page">
+    <h1>Órdenes Terminadas</h1>
+
+    <div class="orden-form">
+
+        <table class="tabla-solicitudes">
+            <thead>
+                <tr>
+                    <th>Folio</th>
+                    <th>Área</th>
+                    <th>Máquina</th>
+                    <th>Solicitante</th>
+                    <th>Técnico</th>
+                    <th>Falla</th>
+                    <th>Causa</th>
+                    <th>Actividad</th>
+                    <th>Refacciones</th>
+                    <th>Estado</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for s in solicitudes %}
+                <tr>
+                    <td>{{ s.folio }}</td>
+                    <td>{{ s.area }}</td>
+                    <td>{{ s.maquina }}</td>
+                    <td>{{ s.solicitante }}</td>
+                    <td>{{ s.tecnico }}</td>
+                    <td>{{ s.descripcion }}</td>
+                    <td>{{ s.causa_falla }}</td>
+                    <td>{{ s.actividad_realizada }}</td>
+                    <td>{{ s.refacciones_utilizadas }}</td>
+                    <td>{{ s.estado }}</td>
+                    <td>
+                        <a href="{{ url_for('entrega_supervisor', id=s.id) }}" class="btn-ver">
+                            Revisar entrega
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="/menu" class="regresar">Regresar al menú</a>
+
+    </div>
+</div>
+
+</body>
+</html>

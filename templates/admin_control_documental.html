@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrar Formatos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="form-page">
+
+    <h1>Administrar Formatos</h1>
+
+    <div class="orden-form">
+
+        <h3>Agregar campo nuevo</h3>
+
+        <form method="POST">
+            <input type="hidden" name="accion" value="agregar">
+
+            <div class="form-grid">
+
+                <div class="campo">
+                    <label>Nombre interno</label>
+                    <input type="text" name="nombre_campo" placeholder="Ejemplo: prioridad" required>
+                </div>
+
+                <div class="campo">
+                    <label>Texto visible</label>
+                    <input type="text" name="etiqueta" placeholder="Ejemplo: Prioridad" required>
+                </div>
+
+                <div class="campo">
+                    <label>Sección</label>
+                    <select name="seccion">
+                        <option>Supervisor</option>
+                        <option>Técnico</option>
+                        <option>Entrega Supervisor</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label>Tipo de campo</label>
+                    <select name="tipo_campo">
+                        <option value="texto">Texto</option>
+                        <option value="numero">Número</option>
+                        <option value="fecha">Fecha</option>
+                        <option value="hora">Hora</option>
+                        <option value="textarea">Texto largo</option>
+                    </select>
+                </div>
+
+                <div class="full-width">
+                    <button type="submit" class="guardar-btn">
+                        Agregar campo
+                    </button>
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+
+    <form method="POST" class="orden-form">
+
+        <input type="hidden" name="accion" value="guardar">
+
+        <h3>Formato: Nueva Orden</h3>
+
+        <div class="form-grid">
+            {% for campo in campos_supervisor %}
+            <div class="campo">
+                <label>
+                    {{ campo.nombre_campo }}
+                    {% if campo.es_extra %}
+                        <span style="color: #0066d9;">(extra)</span>
+                    {% else %}
+                        <span style="color: #777;">(base)</span>
+                    {% endif %}
+                </label>
+
+                <input type="text"
+                       name="etiqueta_{{ campo.id }}"
+                       value="{{ campo.etiqueta }}">
+
+                <label>
+                    <input type="checkbox"
+                           name="visible_{{ campo.id }}"
+                           {% if campo.visible %}checked{% endif %}>
+                    Visible
+                </label>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h3>Formato: Orden Activa / Técnico</h3>
+
+        <div class="form-grid">
+            {% for campo in campos_tecnico %}
+            <div class="campo">
+                <label>
+                    {{ campo.nombre_campo }}
+                    {% if campo.es_extra %}
+                        <span style="color: #0066d9;">(extra)</span>
+                    {% else %}
+                        <span style="color: #777;">(base)</span>
+                    {% endif %}
+                </label>
+
+                <input type="text"
+                       name="etiqueta_{{ campo.id }}"
+                       value="{{ campo.etiqueta }}">
+
+                <label>
+                    <input type="checkbox"
+                           name="visible_{{ campo.id }}"
+                           {% if campo.visible %}checked{% endif %}>
+                    Visible
+                </label>
+            </div>
+            {% endfor %}
+        </div>
+
+        <h3>Formato: Orden Terminada / Entrega Supervisor</h3>
+
+        <div class="form-grid">
+            {% for campo in campos_entrega %}
+            <div class="campo">
+                <label>
+                    {{ campo.nombre_campo }}
+                    {% if campo.es_extra %}
+                        <span style="color: #0066d9;">(extra)</span>
+                    {% else %}
+                        <span style="color: #777;">(base)</span>
+                    {% endif %}
+                </label>
+
+                <input type="text"
+                       name="etiqueta_{{ campo.id }}"
+                       value="{{ campo.etiqueta }}">
+
+                <label>
+                    <input type="checkbox"
+                           name="visible_{{ campo.id }}"
+                           {% if campo.visible %}checked{% endif %}>
+                    Visible
+                </label>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="full-width">
+            <button type="submit" class="guardar-btn">
+                Guardar cambios
+            </button>
+        </div>
+
+        <a href="/administrar_formatos" class="regresar">
+            Regresar
+        </a>
+
+    </form>
+
+</div>
+
+</body>
+</html>
