@@ -1,0 +1,81 @@
+<!-- EJEMPLOS DE LOS CAMBIOS IMPORTANTES -->
+
+{% if labels.get("area") %}
+<div class="campo">
+    <label>{{ labels.get("area") }}</label>
+    <input type="text" value="{{ solicitud.area }}" readonly>
+</div>
+{% endif %}
+
+{% if labels.get("maquina") %}
+<div class="campo">
+    <label>{{ labels.get("maquina") }}</label>
+    <input type="text" value="{{ solicitud.maquina }}" readonly>
+</div>
+{% endif %}
+
+{% if labels.get("fecha_solicitud") %}
+<div class="campo">
+    <label>{{ labels.get("fecha_solicitud") }}</label>
+    <input type="text" value="{{ solicitud.fecha_solicitud }}" readonly>
+</div>
+{% endif %}
+
+{% if labels.get("participo_1") %}
+<div class="campo">
+
+    <label>{{ labels.get("participo_1") }}</label>
+
+    <select name="participo_1"
+            id="tecnico1"
+            onchange="calcularTiempos()">
+
+        <option>No aplica</option>
+
+        {% for tecnico in tecnicos %}
+        <option>{{ tecnico.nombre }}</option>
+        {% endfor %}
+
+    </select>
+
+</div>
+{% endif %}
+
+{% if labels.get("inicio_actividades") %}
+<div class="campo">
+
+    <label>{{ labels.get("inicio_actividades") }}</label>
+
+    <input type="datetime-local"
+           name="inicio_actividades"
+           id="inicioActividades"
+           onchange="calcularTiempos()">
+
+</div>
+{% endif %}
+
+{% if labels.get("servicio_hrs") %}
+<div class="campo">
+
+    <label>{{ labels.get("servicio_hrs") }}</label>
+
+    <input type="number"
+           step="0.01"
+           name="servicio_hrs"
+           id="servicioHrs"
+           readonly>
+
+</div>
+{% endif %}
+
+{% if labels.get("causa_falla") %}
+<div class="campo full-width">
+
+    <label>{{ labels.get("causa_falla") }}</label>
+
+    <textarea name="causa_falla"
+              rows="4"
+              required></textarea>
+
+</div>
+{% endif %}
