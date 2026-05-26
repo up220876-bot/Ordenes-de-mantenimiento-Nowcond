@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrar Usuarios</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="form-page">
+
+    <h1>Administrar Usuarios</h1>
+
+    <div class="orden-form">
+
+        <h3>Agregar usuario</h3>
+
+        <form method="POST">
+
+            <div class="form-grid">
+
+                <div class="campo">
+                    <label>Nombre</label>
+
+                    <input type="text"
+                           name="nombre"
+                           required>
+                </div>
+
+                <div class="campo">
+                    <label>Rol</label>
+
+                    <select name="rol" required>
+                        <option value="admin">Administrador</option>
+                        <option value="supervisor">Supervisor</option>
+                        <option value="tecnico">Técnico</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label>Contraseña temporal</label>
+
+                    <input type="text"
+                           name="password"
+                           required>
+                </div>
+
+                <div class="full-width">
+
+                    <button type="submit"
+                            class="guardar-btn">
+
+                        Crear usuario
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    <div class="orden-form">
+
+        <h3>Usuarios registrados</h3>
+
+        <table class="tabla-industrial">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Rol</th>
+                    <th>Contraseña nueva</th>
+                    <th>Guardar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for usuario in usuarios %}
+
+                <tr>
+
+                    <form method="POST"
+                          action="{{ url_for('editar_usuario', id=usuario.id) }}">
+
+                        <td>{{ usuario.id }}</td>
+
+                        <td>
+                            <input type="text"
+                                   name="nombre"
+                                   value="{{ usuario.nombre }}">
+                        </td>
+
+                        <td>
+
+                            <select name="rol">
+
+                                <option value="admin"
+                                {% if usuario.rol == "admin" %}selected{% endif %}>
+                                    Administrador
+                                </option>
+
+                                <option value="supervisor"
+                                {% if usuario.rol == "supervisor" %}selected{% endif %}>
+                                    Supervisor
+                                </option>
+
+                                <option value="tecnico"
+                                {% if usuario.rol == "tecnico" %}selected{% endif %}>
+                                    Técnico
+                                </option>
+
+                            </select>
+
+                        </td>
+
+                        <td>
+                            <input type="text"
+                                   name="password"
+                                   placeholder="Nueva contraseña">
+                        </td>
+
+                        <td>
+
+                            <button type="submit"
+                                    class="guardar-btn">
+
+                                Guardar
+
+                            </button>
+
+                        </td>
+
+                        <td>
+
+                            <a href="{{ url_for('eliminar_usuario', id=usuario.id) }}"
+                               class="eliminar-btn">
+
+                                Eliminar
+
+                            </a>
+
+                        </td>
+
+                    </form>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+        <br>
+
+        <a href="/administrar_formatos"
+           class="regresar">
+
+           Regresar
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>
